@@ -34,7 +34,7 @@ const Skills = () => {
               whileInView={{ opacity: [0, 1] }}
               transition={{ duration: 0.5 }}
               className="app__skills-item app__flex"
-              key={skill.name}
+              key={`Skill-${skill.name}`}
             >
               <div
                 className="app__flex"
@@ -74,6 +74,7 @@ const Skills = () => {
                       effect="solid"
                       arrowColor="#fff"
                       className="skills-tooltip"
+                      key={`ToolTip-${work.name}`}
                     >
                       {work.desc}
                     </ReactTooltip>

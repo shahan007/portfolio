@@ -6,12 +6,12 @@ import { client } from '../../client';
 import './Footer.scss';
 
 const Footer = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });  
+  const { name, email, message } = formData;
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const { username, email, message } = formData;
-
+    
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -20,21 +20,21 @@ const Footer = () => {
   const handleSubmit = event => {
 
     event.preventDefault()
-
+  
     if (
-      (formData.username.trim().length >= 3)
+      (name.trim().length >= 3)
       &&
-      (formData.email.trim().length >= 3)
+      (email.trim().length >= 3)
       &&
-      (formData.message.trim().length >= 10)
+      (message.trim().length >= 10)
     ) {
       setLoading(true);
 
       const contact = {
         _type: 'contact',
-        name: formData.username,
-        email: formData.email,
-        message: formData.message,
+        name: name,
+        email: email,
+        message: message,
       };
 
       client.create(contact)
@@ -43,6 +43,8 @@ const Footer = () => {
           setIsFormSubmitted(true);
         })
         .catch((err) => console.log(err));
+    } else{
+      console.warn("DONT KNOW")
     }
   };
 
@@ -63,11 +65,11 @@ const Footer = () => {
       {!isFormSubmitted ? (
         <div className="app__footer-form app__flex">
           <div className="app__flex">
-            <input minLength={3} required className="p-text" type="text" placeholder="Your Name" name="username" value={username} onChange={handleChangeInput} />
-          </div>
+            <input minLength={3} required className="p-text" type="text" placeholder="Your Name" name="name" value={name} onChange={handleChangeInput} />
+          </div>          
           <div className="app__flex">
             <input minLength={3} required className="p-text" type="email" placeholder="Your Email" name="email" value={email} onChange={handleChangeInput} />
-          </div>
+          </div>          
           <div>
             <textarea
               className="p-text"
@@ -78,7 +80,7 @@ const Footer = () => {
               required
               minLength={10}
             />
-          </div>
+          </div>          
           <button type="submit" className="p-text" onClick={handleSubmit}>{!loading ? 'Send Message' : 'Sending...'}</button>
         </div>
       ) : (
