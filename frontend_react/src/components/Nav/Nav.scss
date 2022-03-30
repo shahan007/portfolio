@@ -21,8 +21,7 @@
   align-items: center;
 
   img {
-    width: 90px;
-    height: 20px;
+    width: 75px;    
 
     @media screen and (min-width: 2000px) {
       width: 180px;
@@ -93,6 +92,7 @@
   justify-content: center;
   align-items: center;
   background-color: var(--secondary-color);
+  transition: all 0.3s ease-in-out; 
 
 
   svg {
@@ -110,8 +110,8 @@
 
     padding: 1rem;
 
-    width: 70%;
-    height: 100vh;
+    width: 65%;
+    height: 100vh;    
     
     display: flex;
     justify-content: flex-end;

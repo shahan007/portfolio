@@ -1,12 +1,19 @@
 import React, {useState} from 'react'
 import {HiMenuAlt4, HiX} from "react-icons/hi"
-import {motion} from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { images } from '../../constants'
 import "./Nav.scss"
 
 const Nav = () => {
 
   const [menuToggle, setMenuToggle] = useState(false)
+
+  const handleOnClick = (event,state) => {
+    event.stopPropagation();
+    event.nativeEvent.stopImmediatePropagation();    
+    setMenuToggle(state);
+    console.log(state)
+  };
 
   return (
     <nav className='app__navbar'>
@@ -24,21 +31,24 @@ const Nav = () => {
         }
       </ul>
       <div className="app__navbar-menu">
-        <HiMenuAlt4 onClick={()=>setMenuToggle(true)}/>        
+        <HiMenuAlt4 onClick={(e) =>handleOnClick(e,true)}/>        
+        <AnimatePresence>
         {
           menuToggle && (
             <motion.div
-              whileInView={{x:[300,0]}}
+              exit={{ opacity: [1,0],x:180 }}
+              initial={{ x: [180, 0], opacity: [0,1]}}
+              whileInView={{ x: [180, 0], opacity: [0, 1]}}
               transition={{duration:0.85,ease:"easeInOut"}}              
             >
-              <HiX onClick={() => (setMenuToggle(false))}/>
+              <HiX onClick={(e) => handleOnClick(e,false)}/>
               <ul>
                 {
                   ["home", "about", "work", "skills", "testimonials", "contact"].map(navItem => (
                     <li key={navItem}>
                       <a 
                         href={`#${navItem}`}
-                        onClick={() => setMenuToggle(false)}
+                        onClick={(e) => handleOnClick(e,false) }
                       >
                         {navItem}
                       </a>
@@ -50,6 +60,7 @@ const Nav = () => {
             </motion.div>
           )
         }
+        </AnimatePresence>
       </div>
     </nav>
   )
