@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ReactTooltip from 'react-tooltip';
-
 import { AppWrap, MotionWrap } from '../../wrapper';
 import { urlFor, client } from '../../client';
 import './Skills.scss';
 
 const Skills = () => {
+  
   const [experiences, setExperiences] = useState([]);
   const [skills, setSkills] = useState([]);
 
@@ -57,14 +57,13 @@ const Skills = () => {
               </div>
               <motion.div className="app__skills-exp-works">
                 {experience.works.map((work) => (
-                  <>
+                  <React.Fragment key={work.name}>
                     <motion.div
                       whileInView={{ opacity: [0, 1] }}
                       transition={{ duration: 0.5 }}
                       className="app__skills-exp-work"
                       data-tip
-                      data-for={work.name}
-                      key={work.name}
+                      data-for={work.name}                      
                     >
                       <h4 className="bold-text">{work.name}</h4>
                       <p className="p-text">{work.company}</p>
@@ -73,12 +72,11 @@ const Skills = () => {
                       id={work.name}
                       effect="solid"
                       arrowColor="#fff"
-                      className="skills-tooltip"
-                      key={`ToolTip-${work.name}`}
+                      className="skills-tooltip"                      
                     >
                       {work.desc}
                     </ReactTooltip>
-                  </>
+                  </React.Fragment>
                 ))}
               </motion.div>
             </motion.div>
