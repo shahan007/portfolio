@@ -40,10 +40,12 @@
     p {
       font-weight: 500;
     }
+
     a {
       text-decoration: none;
       font-weight: 500;
     }
+
     &:hover {
       box-shadow: 0 0 25px #fef4f5;
     }
@@ -126,5 +128,41 @@
   @media screen and (max-width: 768px) {
     width: 100%;
     margin: 1rem 0;
+  }
+}
+
+.error-message {
+  text-align: left;
+  align-self: flex-start;
+  font-size: 0.7rem;
+  padding: 8px;
+  border: 1px solid rgba(250, 255, 141, 0.67);
+  border-radius: 8px;
+  background: rgba(250, 255, 141, 0.52);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(14.3px);
+  --webkit-backdropFilter: blur(14.3px);
+}
+
+.thank-you-msg {
+  span {
+    padding-left: 12px;
+    font-size: 1.5rem;
+    margin: 12px auto;
+
+    @media screen and (max-width:700px) {
+      display: block;
+      padding-left: unset;
+    }
+  }
+
+  img {
+    width: 1.5rem;
+
+    @media screen and (max-width:700px) {
+      display: block;
+      width: 2.75rem;
+      margin: auto;
+    }
   }
 }

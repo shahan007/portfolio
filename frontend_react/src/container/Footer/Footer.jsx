@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { images } from '../../constants';
+import { motion,AnimatePresence } from 'framer-motion';
 import { AppWrap, MotionWrap } from '../../wrapper';
 import { client } from '../../client';
 import './Footer.scss';
@@ -9,6 +10,7 @@ const Footer = () => {
 
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });  
   const { name, email, message } = formData;
+  const [textAreaError,setTextAreaError] = useState(false)  
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
     
@@ -18,7 +20,7 @@ const Footer = () => {
   };
 
   const handleSubmit = event => {
-
+    
     event.preventDefault()
   
     if (
@@ -44,7 +46,10 @@ const Footer = () => {
         })
         .catch((err) => console.log(err));
     } else{
-      console.warn("DONT KNOW")
+      if (message.trim().length <10){
+        setTextAreaError(true)
+        setTimeout(() => setTextAreaError(false),5000)
+      }      
     }
   };
 
@@ -63,12 +68,22 @@ const Footer = () => {
         </div>
       </div>
       {!isFormSubmitted ? (
-        <div className="app__footer-form app__flex">
+        <form onSubmit={handleSubmit} className="app__footer-form app__flex">
           <div className="app__flex">
             <input minLength={3} required className="p-text" type="text" placeholder="Your Name" name="name" value={name} onChange={handleChangeInput} />
           </div>          
           <div className="app__flex">
-            <input minLength={3} required className="p-text" type="email" placeholder="Your Email" name="email" value={email} onChange={handleChangeInput} />
+            <input 
+              minLength={3} 
+              required 
+              className="p-text" 
+              type="email" 
+              placeholder="Your Email" 
+              name="email" 
+              value={email} 
+              onChange={handleChangeInput} 
+              pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"             
+            />
           </div>          
           <div>
             <textarea
@@ -77,18 +92,34 @@ const Footer = () => {
               value={message}
               name="message"
               onChange={handleChangeInput}
-              required
-              minLength={10}
+              required                     
             />
-          </div>          
-          <button type="submit" className="p-text" onClick={handleSubmit}>{!loading ? 'Send Message' : 'Sending...'}</button>
-        </div>
-      ) : (
-        <div>
-          <h3 className="head-text">
-            Thank you for getting in touch!
-          </h3>
-        </div>
+          </div>       
+          <AnimatePresence>
+            {textAreaError && (
+              <motion.p           
+                whileInView={{x:["-10vw","0vw"] ,scale:[0.8,1],  opacity: [0, 1]}} 
+                initial={{x:"-10vw",scale:0.8,opacity:0}}                                    
+                exit={{opacity:[1,0]}}
+                className="error-message"
+              >
+                😔 Message must be at least 10 chars long !
+              </motion.p>
+            )}
+          </AnimatePresence>
+          <button type="submit" className="p-text">{!loading ? 'Send Message' : 'Sending...'}</button>
+        </form>
+      ) : (        
+          <motion.div
+            whileInView={{ y: ["10vh", "0vh"], scale: [0.8, 1], opacity: [0, 1] }}
+            initial={{ y: "-10vh", scale: 0.8, opacity: 0 }}                                    
+            transition={{ duration: 0.5, type: "tween" }}
+          >
+            <h3 className="thank-you-msg" style={{margin:"1.5rem auto"}}>
+              <img src={images.waveGif} alt="wave gif"/>
+              <span className="head-text" >Thank you for getting in touch!</span>
+            </h3>
+          </motion.div>        
       )}
     </>
   );
