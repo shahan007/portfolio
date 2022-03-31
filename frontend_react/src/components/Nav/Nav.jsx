@@ -11,8 +11,7 @@ const Nav = () => {
   const handleOnClick = (event,state) => {
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();    
-    setMenuToggle(state);
-    console.log(state)
+    setMenuToggle(state);    
   };
 
   return (
