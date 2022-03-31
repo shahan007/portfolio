@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { images } from '../../constants';
 import { motion,AnimatePresence } from 'framer-motion';
+import ReactTooltip from 'react-tooltip';
+import { SocialMedia } from '../../components';
 import { AppWrap, MotionWrap } from '../../wrapper';
 import { client } from '../../client';
 import './Footer.scss';
@@ -62,9 +64,21 @@ const Footer = () => {
           <img src={images.email} alt="email" />
           <a href="mailto:shahan989+portfolio@micael.com" className="p-text">hello@shahan</a>
         </div>
-        <div className="app__footer-card">
+        <div className="app__footer-card" data-event='click focus' data-tip data-for="socials-links">
           <img src={images.mobile} alt="phone" />
-          <a href="tel:+1 (123) 456-7890" className="p-text">+1 (123) 456-7890</a>
+          <p className="p-text">
+            contact@socials 😊
+          </p>
+          <ReactTooltip
+            id="socials-links"
+            effect="solid"
+            arrowColor="#fff"
+            className="skills-tooltip react-tooltip-clickable-link"                        
+            globalEventOff='click'                  
+            getContent={() => {
+              return <SocialMedia />
+            }}            
+          />          
         </div>
       </div>
       {!isFormSubmitted ? (
