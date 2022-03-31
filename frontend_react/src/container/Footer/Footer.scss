@@ -188,3 +188,9 @@
 .react-tooltip-clickable-link {
   pointer-events: auto !important;
 }
+
+#socials-links .app__social {
+  @media screen and (max-width: 500px) {
+    display: block !important;
+  }
+}

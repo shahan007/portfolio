@@ -8,6 +8,7 @@ import { AppWrap, MotionWrap } from '../../wrapper';
 import { client } from '../../client';
 import './Footer.scss';
 
+
 const Footer = () => {
 
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });  
@@ -64,21 +65,25 @@ const Footer = () => {
           <img src={images.email} alt="email" />
           <a href="mailto:shahan989+portfolio@micael.com" className="p-text">hello@shahan</a>
         </div>
-        <div className="app__footer-card" data-event='click focus' data-tip data-for="socials-links">
+        <div className="app__footer-card"           
+          data-event='click focus'
+            data-tip 
+            data-for="socials-links"
+          >
           <img src={images.mobile} alt="phone" />
           <p className="p-text">
             contact@socials 😊
-          </p>
-          <ReactTooltip
+          </p>        
+          <ReactTooltip              
             id="socials-links"
             effect="solid"
             arrowColor="#fff"
             className="skills-tooltip react-tooltip-clickable-link"                        
-            globalEventOff='click'                  
+            globalEventOff="click"             
             getContent={() => {
-              return <SocialMedia />
+              return <SocialMedia/>
             }}            
-          />          
+          />                      
         </div>
       </div>
       {!isFormSubmitted ? (
