@@ -61,30 +61,41 @@ const Footer = () => {
       <h2 className="head-text">Take a coffee & chat with me</h2>
 
       <div className="app__footer-cards">
-        <div className="app__footer-card ">
+        <div data-for="my-mail" data-tip className="app__footer-card ">
           <img src={images.email} alt="email" />
-          <a href="mailto:shahan989+portfolio@micael.com" className="p-text">hello@shahan</a>
+          <a href="mailto:shahan989+portfolio@hotmail.com" className="p-text">hello@shahan</a>                    
         </div>
+        <ReactTooltip 
+          delayHide={100}
+          id="my-mail" 
+          effect="solid"
+          arrowColor="#fff"
+          className="skills-tooltip react-tooltip-clickable-link"          
+          getContent={() => {
+            return "shahan989+portfolio@hotmail.com"
+          }}
+        />          
         <div className="app__footer-card"           
-          data-event='click focus'
+            // data-event='focus click'
+            data-event-off="click"
             data-tip 
             data-for="socials-links"
           >
           <img src={images.mobile} alt="phone" />
           <p className="p-text">
             contact@socials 😊
-          </p>        
-          <ReactTooltip              
-            id="socials-links"
-            effect="solid"
-            arrowColor="#fff"
-            className="skills-tooltip react-tooltip-clickable-link"                        
-            globalEventOff="click"             
-            getContent={() => {
-              return <SocialMedia/>
-            }}            
-          />                      
+          </p>                        
         </div>
+        <ReactTooltip          
+          delayHide={100}
+          id="socials-links"
+          effect="solid"
+          arrowColor="#fff"
+          className="skills-tooltip react-tooltip-clickable-link"
+          clickable={true}
+          globalEventOff="click"
+          getContent={() => <SocialMedia />}
+        />               
       </div>
       {!isFormSubmitted ? (
         <form onSubmit={handleSubmit} className="app__footer-form app__flex">
