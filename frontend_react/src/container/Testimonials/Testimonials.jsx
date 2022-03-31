@@ -7,12 +7,16 @@ import { urlFor, client } from '../../client';
 import './Testimonials.scss';
 
 const Testimonial = () => {
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [testimonials, setTestimonials] = useState([]);
+  const [direction,setDirection] = useState("")
   const [brands, setBrands] = useState([]);
 
-  const handleClick = (index) => {
-    setCurrentIndex(index);
+  const handleClick = (index,direction) => {    
+    setDirection(direction)   
+    setCurrentIndex(index)
+    setTimeout(() => setDirection(""),150)       
   };
 
   useEffect(() => {
@@ -29,10 +33,22 @@ const Testimonial = () => {
   }, []);
 
   return (
-    <>
+    <>          
       {testimonials.length && (
-        <>
-          <div className="app__testimonial-item app__flex">
+        <>        
+          <motion.div 
+            className={
+              direction === "left" ?
+              "app__testimonial-item app__flex slide-l-r":
+              direction === "right" ?
+              "app__testimonial-item app__flex slide-r-l":
+              "app__testimonial-item app__flex"
+            }
+            whileInView={{ 
+              opacity: [0, 1]
+            }}
+            transition={{ duration: 0.3, ease:"easeInOut"}}
+          >
             <img src={urlFor(testimonials[currentIndex].imageurl)} alt={testimonials[currentIndex].name} />
             <div className="app__testimonial-content">
               <p className="p-text">{testimonials[currentIndex].feedback}</p>
@@ -41,20 +57,18 @@ const Testimonial = () => {
                 <h5 className="p-text">{testimonials[currentIndex].company}</h5>
               </div>
             </div>
-          </div>
-
+          </motion.div>        
           <div className="app__testimonial-btns app__flex">
-            <div className="app__flex" onClick={() => handleClick(currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1)}>
+            <div className="app__flex" onClick={() => handleClick(currentIndex === 0 ? testimonials.length - 1 : currentIndex - 1,"left")}>
               <HiChevronLeft />
             </div>
 
-            <div className="app__flex" onClick={() => handleClick(currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1)}>
+            <div className="app__flex" onClick={() => handleClick(currentIndex === testimonials.length - 1 ? 0 : currentIndex + 1,"right")}>
               <HiChevronRight />
             </div>
           </div>
-        </>
-      )}
-
+        </>        
+      )}         
       <div className="app__testimonial-brands app__flex">
         {brands.map((brand) => (
           <motion.div
