@@ -6,6 +6,7 @@ This is my  [personal website](https://shahan.netlify.app/)
 - React 
 - SaaS
 - Framer Motion
+- EmailJS
 ## ✨ Backend Built With
 
 - Sanity (backend)
