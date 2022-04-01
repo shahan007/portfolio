@@ -5,7 +5,7 @@ import { motion,AnimatePresence } from 'framer-motion';
 import ReactTooltip from 'react-tooltip';
 import { SocialMedia } from '../../components';
 import { AppWrap, MotionWrap } from '../../wrapper';
-import { client } from '../../client';
+import { client,sendEmailJS } from '../../client';
 import './Footer.scss';
 
 
@@ -47,12 +47,17 @@ const Footer = () => {
           setLoading(false);
           setIsFormSubmitted(true);
         })
-        .catch((err) => console.log(err));
+        .catch(() => (
+          setTimeout(() => {
+            setLoading(false)
+          }, 1000)
+        ));
+      sendEmailJS(name,email,message,setLoading,setIsFormSubmitted)
     } else{
       if (message.trim().length <10){
         setTextAreaError(true)
         setTimeout(() => setTextAreaError(false),5000)
-      }      
+      }     
     }
   };
 
